@@ -3,13 +3,13 @@
   "users": [
     {
       "id": 0,
-      "name": "Serhiy",
-      "email": "test@gmail.com"
+      "name": "Viktor",
+      "email": "test2@gmail.com"
     },
     {
       "id": 1,
       "name": "Viktor",
-      "email": "test1@gmail.com"
+      "email": "test2@gmail.com"
     },
     {
       "id": 3,

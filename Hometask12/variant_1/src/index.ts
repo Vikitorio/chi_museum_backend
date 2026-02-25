@@ -93,17 +93,19 @@ app.patch("/users/:id", (req, res) => {
         const parsedDB = getDb();
         const { users } = parsedDB;
         const userIndex = users.findIndex((user: UserItem) => user.id == Number(id));
-        if (userIndex > -1) {
-            for (let key in data) {
-                if (key == "id") continue;
-                users[userIndex][key] = data[key];
-            }
-            writeToDb({ ...parsedDB, users });
-            res.send({ changed: users[userIndex], updatedUsersList: users });
+        if (userIndex < 0) { return res.status(404).send({ err: `cannot find user by id:${id} ` }); }
+        if (data.email) {
+            const userIndexByEmail = users.findIndex((user: UserItem) => user.email == data.email && user.id != Number(id));
+            if (userIndexByEmail != -1) { return res.status(409).send("user with this email alredy exist"); }
         }
-        else {
-            return res.status(404).send({ err: `cannot find user by id:${id} ` });
+        for (let key in data) {
+            if (key == "id") continue;
+            users[userIndex][key] = data[key];
         }
+        writeToDb({ ...parsedDB, users });
+        res.send({ changed: users[userIndex], updatedUsersList: users });
+
+
     } catch (err) {
         res.status(500).send(err);
     }
