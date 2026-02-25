@@ -1,0 +1,20 @@
+{
+  "index": 4,
+  "users": [
+    {
+      "id": 0,
+      "name": "Serhiy",
+      "email": "test@gmail.com"
+    },
+    {
+      "id": 1,
+      "name": "Viktor",
+      "email": "test1@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "Viktor1",
+      "email": "test3@gmail.com"
+    }
+  ]
+}

@@ -46,7 +46,7 @@ app.get("/test", (req, res) => {
     res.send("test")
 })
 app.get("/", (req, res) => {
-    res.send({ author: "Viktor Mychalchevskyi", description: "Developed during CHI course" })
+    res.send({ author: "Viktor Mychalchevskyi", description: "Developed during CHI course" });
 })
 app.get("/users", (req, res) => {
     try {
@@ -62,7 +62,7 @@ app.get("/users/:id", (req, res) => {
     const { id } = req.params;
     try {
         const { users } = getDb();
-        const userIndex = users.findIndex((user: UserItem) => user.id == Number(id))
+        const userIndex = users.findIndex((user: UserItem) => user.id == Number(id));
         if (userIndex < 0) { return res.status(404).send(`User id:${id} not found`); }
         res.send(users[userIndex]);
     } catch (err) {
@@ -71,11 +71,13 @@ app.get("/users/:id", (req, res) => {
 })
 
 app.post("/users", (req, res) => {
-    const { userData } = req.body;
+    const userData = req.body;
     try {
         const parsedDB = getDb();
         let { index, users } = parsedDB;
-        users.push({ id: index++, name: userData.name });
+        const userIndex = users.findIndex((user: UserItem) => user.email == userData.email);
+        if (userIndex != -1) { return res.status(409).send("User with this email already exist"); }
+        users.push({ id: index++, name: userData.name, email: userData.email });
         writeToDb({ index, users });
         res.send({ user: users[users.length - 1] });
 
@@ -128,5 +130,5 @@ app.delete("/users/:id", (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log("listen port 3000");
+    console.log("listen port http://localhost:3000/");
 })
