@@ -1,23 +1,20 @@
 {
-  "index": 5,
+  "index": 4,
   "users": [
     {
-      "id": 4,
-      "name": "serg"
+      "id": 0,
+      "name": "Viktor1",
+      "email": "test3@gmail.com"
     },
     {
       "id": 2,
-      "name": "Viktor",
-      "email": "test@gmail.com"
+      "name": "Sonya1",
+      "email": "test44@gmail.com"
     },
     {
       "id": 3,
-      "name": "serg"
-    },
-    {
-      "id": 4,
-      "name": "Viktor",
-      "email": "test@gmail.com"
+      "name": "Sonya",
+      "email": "test4@gmail.com"
     }
   ]
 }

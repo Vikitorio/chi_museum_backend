@@ -31,6 +31,8 @@ export class UserController {
         try {
             const parsedDB = DbService.getDb();
             let { index, users } = parsedDB;
+            const userIndexByEmail = users.findIndex((user: UserItem) => user.email == userData.email);
+            if (userIndexByEmail != -1) { throw new BadRequestError("User with this email alredy exist") }
             users.push({ id: index++, ...userData });
             DbService.writeToDb({ index, users });
             return { user: users[users.length - 1] };
@@ -51,18 +53,19 @@ export class UserController {
             const parsedDB = DbService.getDb();
             const { users } = parsedDB;
             const userIndex = users.findIndex((user: UserItem) => user.id == Number(id));
-            if (userIndex > -1) {
-                for (let key of Object.keys(userData) as (keyof UpdateUserData)[]) {
-                    if (userData[key] !== undefined) {
-                        users[key] = userData[key];
-                    }
+            if (userIndex < 0) { throw new NotFoundError(`cannot find user by id:${id}`); }
+            if (data.email) {
+                const userIndexByEmail = users.findIndex((user: UserItem) => user.email == data.email && user.id != id);
+                if (userIndexByEmail != -1) { throw new BadRequestError("User with this email alredy exist") }
+            }
+
+            for (let key of Object.keys(userData) as (keyof UpdateUserData)[]) {
+                if (userData[key] !== undefined) {
+                    users[userIndex][key] = userData[key];
                 }
-                DbService.writeToDb({ ...parsedDB, users });
-                return { changed: users[userIndex], updatedUsersList: users };
             }
-            else {
-                throw new NotFoundError(`cannot find user by id:${id}`);
-            }
+            DbService.writeToDb({ ...parsedDB, users });
+            return { changed: users[userIndex], updatedUsersList: users };
         } catch (err) {
             throw new BadRequestError(String(err));
         }

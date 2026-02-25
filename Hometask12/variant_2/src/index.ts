@@ -25,5 +25,5 @@ dbInitialize();
 
 
 app.listen(3000, () => {
-    console.log("listen port 3000");
+    console.log("listen port http://localhost:3000/");
 })
