@@ -1,0 +1,23 @@
+{
+  "index": 5,
+  "users": [
+    {
+      "id": 4,
+      "name": "serg"
+    },
+    {
+      "id": 2,
+      "name": "Viktor",
+      "email": "test@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "serg"
+    },
+    {
+      "id": 4,
+      "name": "Viktor",
+      "email": "test@gmail.com"
+    }
+  ]
+}
